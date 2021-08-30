@@ -16,8 +16,22 @@ HISTCONTROL=ignoreboth
 shopt -s histappend
 
 # for setting history length see HISTSIZE and HISTFILESIZE in bash(1)
-HISTSIZE=1000
-HISTFILESIZE=2000
+HISTSIZE=10000
+HISTFILESIZE=2000000
+
+# other history settings
+HISTCONTROL=ignoreboth # ignoreboth = ignorespace + ignoredups
+HISTTIMEFORMAT='%F %T '
+HISTIGNORE="&:?:??:exit:pwd:clear:history:[ \t]*"
+
+# If set, bash attempts to save all lines of
+# a multiple-line command in the same history entry.
+shopt -s cmdhist
+
+# histappend: If set, the history list is appended to the file
+# named by the HISTFILE variable's value when the shell exits, 
+# rather than overwriting the file.
+shopt -s histappend 
 
 # check the window size after each command and, if necessary,
 # update the values of LINES and COLUMNS.
