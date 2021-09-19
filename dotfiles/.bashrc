@@ -99,3 +99,8 @@ if [ -e /usr/share/doc/fzf/examples/completion.bash ]; then
 fi
 
 alias docker='sudo docker'
+
+# virtualenv and virtualenvwrapper
+export WORKON_HOME=$HOME/.virtualenvs
+export VIRTUALENVWRAPPER_PYTHON=/usr/bin/python3
+source /usr/local/bin/virtualenvwrapper.sh
