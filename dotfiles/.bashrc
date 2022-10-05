@@ -97,5 +97,3 @@ fi
 if [ -e /usr/share/doc/fzf/examples/completion.bash ]; then
     source /usr/share/doc/fzf/examples/completion.bash
 fi
-
-alias docker='sudo docker'
