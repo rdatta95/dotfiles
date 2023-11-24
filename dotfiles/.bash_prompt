@@ -1,38 +1,56 @@
-if [[ $COLORTERM = gnome-* && $TERM = xterm ]] && infocmp gnome-256color >/dev/null 2>&1    ; then
+if [[ $COLORTERM = gnome-* && $TERM = xterm ]] && infocmp gnome-256color >/dev/null 2>&1; then
   export TERM=gnome-256color
 elif infocmp xterm-256color >/dev/null 2>&1; then
   export TERM=xterm-256color
 fi
 
-# disable the default virtualenv prompt change
-export VIRTUAL_ENV_DISABLE_PROMPT=1
+if tput setaf 1 &> /dev/null; then
+  tput sgr0
+  if [[ $(tput colors) -ge 256 ]] 2>/dev/null; then
+    # Changed these colors to fit Solarized theme
+    YELLOW=$(tput setaf 37)
+    MAGENTA=$(tput setaf 125)
+    ORANGE=$(tput setaf 166)
+    GREEN=$(tput setaf 157)
+    PURPLE=$(tput setaf 61)
+    WHITE=$(tput setaf 230)
+  else
+    YELLOW=$(tput setaf 3)
+    MAGENTA=$(tput setaf 5)
+    ORANGE=$(tput setaf 4)
+    GREEN=$(tput setaf 2)
+    PURPLE=$(tput setaf 1)
+    WHITE=$(tput setaf 7)
+  fi
+  BOLD=$(tput bold)
+  RESET=$(tput sgr0)
+else
+  YELLOW="\033[0;33m"
+  MAGENTA="\033[1;31m"
+  ORANGE="\033[1;33m"
+  GREEN="\033[1;32m"
+  PURPLE="\033[1;35m"
+  WHITE="\033[1;37m"
+  BOLD=""
+  RESET="\033[m"
+fi
 
-function get_ip() {
-    my_ip="$(ip route get 8.8.8.8 | head -1 | cut -d' ' -f7)"
-    pattern="[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}$"
-    if [[ $my_ip =~ $pattern ]]
-    then
-        echo $my_ip
-    else
-        echo "(invalid ip)"
-    fi
+export YELLOW
+export MAGENTA
+export ORANGE
+export GREEN
+export PURPLE
+export WHITE
+export BOLD
+export RESET
+
+function parse_git_dirty() {
+  [[ $(git status 2> /dev/null | tail -n1) != *"working directory clean"* ]] && echo "*"
 }
 
-function virtualenv_info(){
-    # Get Virtual Env
-    if [[ -n "$VIRTUAL_ENV" ]]; then
-        # Strip out the path and just leave the env name
-        venv="${VIRTUAL_ENV##*/}"
-    else
-        # In case you don't have one activated
-        venv=''
-    fi
-    [[ -n "$venv" ]] && echo "(venv:$venv)"
+function parse_git_branch() {
+  git branch --no-color 2> /dev/null | sed -e '/^[^*]/d' -e "s/* \(.*\)/\1$(parse_git_dirty)/"
 }
 
-function get_date_time() {
-    date +%Y-%m-%d\ %H:%M:%S
-}
-
-export PS1='\n[$(get_date_time)] \[\033[01;32m\]\u @ $(get_ip)\[\033[00m\]\[\033[01;34m\] [$PWD]\[\033[00m\]$(__git_ps1)\n$(virtualenv_info)\$ '
-export PS2="\n\[\033[01;33m\]→ \[\033[00m\]"
+export PS1="\n\[${BOLD}${PUPRLE}\][\D{%F %T}] \[${BOLD}${ORANGE}\]\u \[$ORANGE\]at \[$ORANGE\]\h \[$ORANGE\]in \[$ORANGE\]\w\[$ORANGE\]\$([[ -n \$(git branch 2> /dev/null) ]] && echo \" on \")\[$ORANGE\]\$(parse_git_branch)\[$ORANGE\]\n\$ \[$RESET\]"
+export PS2="\n\[$ORANGE\]→ \[$RESET\]"
