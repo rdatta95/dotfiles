@@ -1,63 +1,85 @@
-""" Color Settings
-syntax enable       " enable syntax processing
-colorscheme elflord
+""" Color settings
+set background=dark
 
-""" disable syntax highlighting when opened in diff mode
-""" this is to solve the issue of hard to read texts with similar diff colors
+""" set colorscheme
+if 0 == 1                                                       " dummy case for easy re-ordering
+    colorscheme blue
+elseif filereadable(expand("~/.vim/colors/gruvbox.vim"))        " gruvbox: 
+    colorscheme gruvbox
+elseif filereadable(expand("~/.vim/colors/twilight256.vim"))    " twilight256: 
+    colorscheme twilight256
+else                                                            " default
+    colorscheme industry
+endif
+
+""" set diff mode colorscheme
 if &diff
-    syntax off
-endif 
+    if 0 == 1                                                   " dummy case for easy re-ordering
+        colorscheme blue
+    elseif filereadable(expand("~/.vim/colors/gruvbox.vim"))    " gruvbox: 
+        colorscheme gruvbox
+    else                                                        " default
+        colorscheme industry
+    endif
+endif
 
-""" Spaces and Tabs
+""" Syntax enable
+syntax enable           " enable syntax processing
+
+""" Spaces and tab settings
+set tabstop=4           " Number of spaces <tab> counts for.
+set shiftwidth=4
+set expandtab           " TAB expansion
 set smartindent
 
-""" Display Settings
-set number	        " line number
-set showcmd         " show command in bottom bar
-set showmatch       " highlight matching brackets
-
-""" show trailing whitespace
-" set list
-set listchars=tab:>-,trail:·,nbsp:·
-
-""" Cursor line
-set cursorline      " highlight current line
-hi clear CursorLine 
-hi CursorLine gui=underline cterm=underline term=underline
+""" Display settings
+set number
+set showcmd             " show command in bottom bar
+set cursorline          " highlight current line
 " hi CursorLine term=NONE cterm=NONE ctermbg=DarkGrey ctermfg=Black
-
-""" Search Settings
-set ignorecase      " ignore case
-set incsearch       " search as characters are entered
-set hlsearch        " highlight matches
-
-""" Autocomplete Settings
-set wildmenu        " visual autocomplete for command menu
+hi clear CursorLine
+hi CursorLine gui=underline cterm=underline term=underline
+set wildmenu            " visual autocomplete for command menu
+set showmatch           " highlight matching brackets 
 
 """ Code Folding
-set foldmethod=syntax                   " fold the code based on syntax
+set foldmethod=syntax   " fold the code based on syntax
 autocmd BufNewFile,BufRead * normal zR
+
+""" Search settings
+set incsearch           " search as characters are entered
+set hlsearch            " highlight matches
+set ignorecase
 
 """ Setting the statusline
 set laststatus=2        " showing the status line always
 set statusline=
-set statusline+=\%f                                             " showing file path with     respect to current directory
-set statusline+=\%r                                             " showing read-only stat    us as [RO]
-set statusline+=\%m                                             " showing modified statu    s as [+]
-set statusline+=%=                                              " separation between lef    t and right column
-set statusline+=\%y                                             " showing file type in b    uffer as [vim]
+set statusline+=\%f                                             " showing file path with respect to current directory
+set statusline+=\%r                                             " showing read-only status as [RO]
+set statusline+=\%m                                             " showing modified status as [+]
+set statusline+=%=                                              " separation between left and right column
+set statusline+=\%y                                             " showing file type in buffer as [vim]
 set statusline+=\[%{&fileencoding?&fileencoding:&encoding}\]    " showing file encoding
 set statusline+=\[%{&fileformat}\]                              " showing file format
-set statusline+=\[%l:%c\]                                       " showing line number an    d column
+set statusline+=\[%l:%c\]                                       " showing line number and column
 set statusline+=\[%p%%]                                         " show line percentage
 
-""" moving lines up/down [Command --> ctrl + shift + up/down]
+""" Highlight lines in red which go over 80 characters
+highlight ColorColumn ctermbg=7 guibg=#aaaaaa
+""" highlight ColorColumn ctermbg=233 guibg=#aaaaaa
+""" let &colorcolumn="81,121"
+
+""" moving lines up/down with ctrl + shift + up/down
 nnoremap <C-S-Up> :m-2<CR>
 nnoremap <C-S-Down> :m+<CR>
 inoremap <C-S-Up> <Esc>:m-2<CR>
 inoremap <C-S-Down> <Esc>:m+<CR>
 
-""" Show function name [Command --> shift + f]
+""" show trailing whitespace
+" set list
+set listchars=tab:>-,trail:·,nbsp:·
+
+""" Show function name
 fun! ShowFuncName()
   let lnum = line(".")
   let col = col(".")
@@ -66,4 +88,4 @@ fun! ShowFuncName()
   echohl None
   call search("\\%" . lnum . "l" . "\\%" . col . "c")
 endfun
-map <S-f> :call ShowFuncName() <CR> 
+map <S-f> :call ShowFuncName() <CR>
