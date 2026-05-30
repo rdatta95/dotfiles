@@ -5,6 +5,8 @@
 #       email = mail@example.com
 #       name = User Name
 # ======================================================
+[user]
+    useConfigOnly = true
 [include]
     path = ~/.gitconfig.local
 [diff]
