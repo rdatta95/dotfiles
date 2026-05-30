@@ -1,0 +1,26 @@
+# ======================================================
+# Save the following in  ~/.gitconfig.local
+# -----------
+# [user]
+#       email = mail@example.com
+#       name = User Name
+# ======================================================
+[include]
+    path = ~/.gitconfig.local
+[diff]
+    tool = vimdiff # meld
+[difftool]
+    prompt = false
+[merge]
+    tool = vimdiff # meld
+# [mergetool "meld"]
+#     useAutoMerge = true
+[init]
+    defaultBranch = main
+[core]
+    editor = vim
+[mergetool]
+    keepBackup = false
+[alias]
+    hist = log --pretty=format:\"%C(yellow)%h%Creset %ad | %Cgreen%s%Creset %Cred%d%Creset %Cblue[%an]\" --date=iso
+
