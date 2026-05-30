@@ -9,3 +9,4 @@ ln -fv `pwd`/dotfiles/.vimrc ~/.vimrc
 
 # tmux
 ln -fv `pwd`/dotfiles/.tmux.conf ~/.tmux.conf
+ln -fv `pwd`/dotfiles/.tmux.conf.style ~/.tmux.conf.style

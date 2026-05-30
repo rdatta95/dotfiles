@@ -1,0 +1,49 @@
+###########################
+### COLORS              ###
+###########################
+color_bg="#24741d"
+color_fg="#a0b692"
+color_highlight="#b2ff5f"
+color_neutral="#e8e8e8"
+color_gold="#ffd700"
+color_black="#000000"
+
+# -------------------------------------------------------- #
+# Panes configuration
+# -------------------------------------------------------- #
+set-option -g pane-border-style "fg=${color_neutral},dim"
+set-option -g pane-active-border-style "fg=${color_highlight}"
+
+# -------------------------------------------------------- #
+# Status bar configuration
+# -------------------------------------------------------- #
+# Status bar
+set-option -g status "on"
+set-option -g status-interval 15
+set-option -g status-justify left
+set-option -g status-style "bg=${color_bg},fg=${color_fg}"
+
+# Left and Right
+set-option -g status-left  ""
+set-option -g status-right "#[fg=${color_highlight}][%Y-%m-%d][%H:%M] #{?client_prefix,PREFIX,} #[fg=${color_highlight}][#S] "
+
+# Window info
+set-option -g window-status-separator " "
+set-option -g window-status-format " #I:#W#{?#F,(#F),}"
+set-option -g window-status-current-format " #[fg=${color_highlight}]#I:#W#{?#F,(#F),}"
+
+# messaging
+set-option -g message-style "fg=${color_black},bg=${color_gold},bold"
+set-option -g message-command-style "fg=${color_black},bg=${color_gold},bold"
+
+# Status bell style
+#set-option -w -g window-status-bell-attr bold
+#set-option -w -g window-status-bell-fg colour255
+#set-option -w -g window-status-bell-bg colour1
+
+# -------------------------------------------------------- #
+# Mode configuration
+# -------------------------------------------------------- #
+set-option -w -g mode-style "fg=${color_highlight},bg=${color_bg},bold,reverse"
+set-option -w -g clock-mode-colour "${color_highlight}"
+
