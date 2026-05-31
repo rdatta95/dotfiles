@@ -49,11 +49,11 @@ export BOLD
 export RESET
 
 function get_date_time() {
-  echo "\[${PURPLE}\][\D{%F %T}]"
+  echo "\[${WHITE}\][\D{%F %T}]"
 }
 
 function get_user() {
-    echo "\[${GREEN}\]$(whoami | cut -d@ -f1)"
+    echo "\[${GREEN}\]$(whoami | grep -oP '^[a-zA-Z0-9\-_]+')"
 }
 
 function get_ip() {
@@ -97,5 +97,5 @@ function get_prompt_symbol_ps2() {
   echo "\[$ORANGE\]→"
 }
 
-export PS1="\n$(get_date_time) $(get_user) $(get_network) $(get_current_path) $(get_git_info)\n$(get_venv_info)$(get_prompt_symbol_ps1) \[$RESET\]"
+export PS1="\n$(get_date_time) $(get_user) $(get_network)\n$(get_current_path) $(get_git_info)\n$(get_venv_info)$(get_prompt_symbol_ps1) \[$RESET\]"
 export PS2="\n$(get_prompt_symbol_ps2) \[$RESET\]"
