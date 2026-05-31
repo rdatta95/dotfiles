@@ -89,3 +89,9 @@ fun! ShowFuncName()
   call search("\\%" . lnum . "l" . "\\%" . col . "c")
 endfun
 map <S-f> :call ShowFuncName() <CR>
+
+""" Plugins
+if filereadable(expand("~/.vim/autoload/plug.vim"))
+  call plug#begin()
+  call plug#end()
+endif
