@@ -10,6 +10,7 @@ ln -fv "$(pwd)/dotfiles/.vimrc" "${HOME}/.vimrc"
 # tmux
 ln -fv "$(pwd)/dotfiles/.tmux.conf" "${HOME}/.tmux.conf"
 ln -fv "$(pwd)/dotfiles/.tmux.conf.style" "${HOME}/.tmux.conf.style"
+ln -fv "$(pwd)/dotfiles/runtmux.sh" "${HOME}/runtmux.sh"
 
 # git
 ln -fv "$(pwd)/dotfiles/.gitconfig" "${HOME}/.gitconfig"
