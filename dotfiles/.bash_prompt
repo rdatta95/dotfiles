@@ -49,7 +49,7 @@ export BOLD
 export RESET
 
 function get_date_time() {
-  echo "\[${WHITE}\][\D{%F %T}]"
+  echo "\[${PURPLE}\][\D{%F %T}]"
 }
 
 function get_user() {
