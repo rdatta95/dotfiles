@@ -94,8 +94,12 @@ function get_prompt_symbol_ps1() {
 }
 
 function get_prompt_symbol_ps2() {
-  echo "\[$ORANGE\]→"
+  echo "\[$RESET\]>"
 }
 
-export PS1="\n$(get_date_time) $(get_user) $(get_network)\n$(get_current_path) $(get_git_info)\n$(get_venv_info)$(get_prompt_symbol_ps1) \[$RESET\]"
-export PS2="\n$(get_prompt_symbol_ps2) \[$RESET\]"
+function build_ps1_prompt() {
+  PS1="\n$(get_date_time) $(get_user) $(get_network)\n$(get_current_path) $(get_git_info)\n$(get_venv_info)$(get_prompt_symbol_ps1) \[$RESET\]"
+}
+
+export PROMPT_COMMAND=build_ps1_prompt
+export PS2="$(get_prompt_symbol_ps2) \[$RESET\]"
